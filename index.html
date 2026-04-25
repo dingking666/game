@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优选商城 - 品质生活</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                优选商城
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#products">商品</a></li>
+                <li><a href="#about">关于</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>发现品质生活</h1>
+            <p>精选好物，为您带来极致购物体验</p>
+            <a href="#products" class="btn">立即选购</a>
+        </div>
+    </header>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">热门商品</h2>
+            <div class="product-grid" id="productGrid"></div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">关于我们</h2>
+            <p>优选商城致力于为用户提供高品质的商品和优质的购物体验。我们严格筛选每一件商品，确保品质与价值。</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p> 2024 优选商城. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>购物车</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                总计: <span id="cartTotal">¥0</span>
+            </div>
+            <button class="checkout-btn">结算</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
