@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>接星避陨石 - 本地预览</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #10233d;
+        touch-action: none;
+        user-select: none;
+      }
+
+      canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      (function () {
+        const listeners = {
+          start: [],
+          move: [],
+          end: [],
+          hide: []
+        };
+
+        function normalizeTouch(event) {
+          const source = event.touches && event.touches[0] ? event.touches[0] : event;
+          return {
+            clientX: source.clientX,
+            clientY: source.clientY
+          };
+        }
+
+        window.wx = {
+          createCanvas() {
+            const canvas = document.createElement('canvas');
+            document.body.appendChild(canvas);
+            return canvas;
+          },
+          getSystemInfoSync() {
+            return {
+              pixelRatio: window.devicePixelRatio || 1,
+              windowWidth: window.innerWidth,
+              windowHeight: window.innerHeight
+            };
+          },
+          getStorageSync(key) {
+            const value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : '';
+          },
+          setStorageSync(key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+          },
+          vibrateShort() {},
+          onTouchStart(callback) {
+            listeners.start.push(callback);
+          },
+          onTouchMove(callback) {
+            listeners.move.push(callback);
+          },
+          onTouchEnd(callback) {
+            listeners.end.push(callback);
+          },
+          onHide(callback) {
+            listeners.hide.push(callback);
+          }
+        };
+
+        window.addEventListener('pointerdown', function (event) {
+          listeners.start.forEach(function (callback) {
+            callback({ touches: [normalizeTouch(event)] });
+          });
+        });
+
+        window.addEventListener('pointermove', function (event) {
+          listeners.move.forEach(function (callback) {
+            callback({ touches: [normalizeTouch(event)] });
+          });
+        });
+
+        window.addEventListener('pointerup', function () {
+          listeners.end.forEach(function (callback) {
+            callback({});
+          });
+        });
+
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) {
+            listeners.hide.forEach(function (callback) {
+              callback();
+            });
+          }
+        });
+      })();
+    </script>
+    <script src="./game.js"></script>
+  </body>
+</html>
